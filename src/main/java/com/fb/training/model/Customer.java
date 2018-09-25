@@ -6,11 +6,22 @@ import java.util.List;
 
 public class Customer implements Model {
 
+  private Long id;
   private String name;
   private Integer age;
   private Sex sex;
   private BigDecimal money;
   private List<Car> cars;
+
+  public Long getId()
+  {
+    return id;
+  }
+
+  public void setId(Long id)
+  {
+    this.id = id;
+  }
 
   public Integer getAge()
   {
@@ -60,6 +71,12 @@ public class Customer implements Model {
   public void setSex(Sex sex)
   {
     this.sex = sex;
+  }
+
+  @Override
+  public String toString()
+  {
+    return name + ", Cars:" + cars;
   }
 
 }

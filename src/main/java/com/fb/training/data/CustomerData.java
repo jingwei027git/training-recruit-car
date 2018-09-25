@@ -11,35 +11,33 @@ import java.util.Objects;
 
 public final class CustomerData {
 
-  private static List<Customer> data;
-
-  static {
+  public static List<Customer> findAll()
+  {
     final List<Car> cars = CarData.findAll2();
-    data = new ArrayList<Customer>() {{
-      newInstance("Benny", 30, Sex.Male, BigDecimal.valueOf(500), Arrays.asList(cars.get(0), cars.get(1), cars.get(2)));
-      newInstance("Kai", 20, Sex.Female, BigDecimal.valueOf(350), Arrays.asList(cars.get(3), cars.get(4), cars.get(5)));
-      newInstance("Kelly", 20, Sex.Female, BigDecimal.valueOf(350), Arrays.asList(cars.get(6), cars.get(7), cars.get(8)));
+
+    return new ArrayList<Customer>() {{
+      add(newInstance(1L, "Benny", 30, Sex.Male, BigDecimal.valueOf(500), Arrays.asList(cars.get(0), cars.get(1), cars.get(2))));
+      add(newInstance(2L, "Kai", 20, Sex.Female, BigDecimal.valueOf(350), Arrays.asList(cars.get(3), cars.get(4), cars.get(5))));
+      add(newInstance(3L, "Kelly", 20, Sex.Female, BigDecimal.valueOf(350), Arrays.asList(cars.get(6), cars.get(7), cars.get(8))));
     }};
   }
 
-  public static List<Customer> findAll()
-  {
-    return data;
-  }
-
   private static Customer newInstance(
+    Long id,
     String name,
     Integer age,
     Sex sex,
     BigDecimal money,
     List<Car> cars)
   {
+    Objects.requireNonNull(id);
     Objects.requireNonNull(name);
     Objects.requireNonNull(age);
     Objects.requireNonNull(sex);
     Objects.requireNonNull(money);
 
     return new Customer() {{
+      setId(id);
       setName(name);
       setAge(age);
       setSex(sex);

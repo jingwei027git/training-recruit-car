@@ -5,10 +5,21 @@ import java.math.BigDecimal;
 
 public class Car implements Model {
 
+  private Long id;
   private Color color;
   private String name;
   private String brand;
   private BigDecimal price;
+
+  public Long getId()
+  {
+    return id;
+  }
+
+  public void setId(Long id)
+  {
+    this.id = id;
+  }
 
   public String getBrand()
   {
@@ -53,7 +64,7 @@ public class Car implements Model {
   @Override
   public String toString()
   {
-    return brand + ", " + name + " (" + color + ") $" + price;
+    return brand + " - " + name + " (" + color + ") $" + price;
   }
 
 }
