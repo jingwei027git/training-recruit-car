@@ -34,6 +34,11 @@ public final class CustomerData {
     BigDecimal money,
     List<Car> cars)
   {
+    Objects.requireNonNull(name);
+    Objects.requireNonNull(age);
+    Objects.requireNonNull(sex);
+    Objects.requireNonNull(money);
+
     return new Customer() {{
       setName(name);
       setAge(age);
