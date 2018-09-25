@@ -4,28 +4,13 @@ import com.fb.training.enums.Sex;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class Customer {
+public class Customer implements Model {
 
   private String name;
   private Integer age;
   private Sex sex;
   private BigDecimal money;
   private List<Car> cars;
-
-  public Customer(
-    String name,
-    Integer age,
-    Sex sex,
-    BigDecimal money,
-    List<Car> cars)
-  {
-    super();
-    this.name = name;
-    this.age = age;
-    this.sex = sex;
-    this.cars = cars;
-    this.money = money;
-  }
 
   public Integer getAge()
   {
