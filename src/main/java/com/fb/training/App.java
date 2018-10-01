@@ -6,8 +6,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 /**
  * Hello world!
@@ -52,84 +55,97 @@ public class App {
 
     App app = new App();
     app.question1(cars);
-    app.question2(cars);
-    app.question3(cars);
-    app.question4(cars);
-    app.question5(cars);
-    app.question6(cars);
-    app.question7(cars);
-    app.question8(cars);
-    app.question9(cars);
+    //app.question2(cars);
+    //app.question3(cars);
+    //app.question4(cars);
+    //app.question5(cars);
+    //app.question6(cars);
+    //app.question7(cars);
+    //app.question8(cars);
+    //app.question9(cars);
   }
 
   private void question1(List<Car> cars)
   {
-
+    cars.stream().map(Car::getBrand).distinct().forEach(System.out::println);
   }
 
   private void question2(List<Car> cars)
   {
-
+    cars.stream().map(Car::getName).distinct().forEach(System.out::println);
   }
 
   private void question3(List<Car> cars)
   {
-
+    cars.stream().map(Car::getColor).distinct().forEach(System.out::println);
   }
 
   private void question4(List<Car> cars)
   {
-
+    cars.stream().map(Car::getPrice).distinct().forEach(System.out::println);
   }
 
   private void question5(List<Car> cars)
   {
-
+    //Calling min() method on the stream to get the minimum value.
+    //We are passing a lambda function as a comparator, this is used to decide the sorting logic for deciding the minimum value
+    //Calling orElseThrow() to throw an exception if no value is received from min()
+    BigDecimal minPrice = cars.stream().min(Comparator.comparing(Car::getPrice)).map(Car::getPrice).orElseThrow(NoSuchElementException::new);
+    System.out.println(minPrice);
   }
 
   private void question6(List<Car> cars)
   {
-
+    BigDecimal maxPrice = cars.stream().max(Comparator.comparing(Car::getPrice)).map(Car::getPrice).orElseThrow(NoSuchElementException::new);
+    System.out.println(maxPrice);
   }
 
   private void question7(List<Car> cars)
   {
-
+    //comparing(Car::getPrice)後加上.reversed()可逆排
+    cars.stream().sorted(Comparator.comparing(Car::getPrice)).forEach(System.out::println);
   }
 
   // 8.請依廠牌分類後，再依據各個廠牌的價格，由高至低排序
   private void question8(List<Car> cars)
   {
-
-    Map<String, List<Car>> carMap = new HashMap<>();
-    List<Car> temp = null;
-    for (Car car : cars) {
-      temp = carMap.get(car.getName());
-      if (temp == null) {
-        temp = new ArrayList<>();
-        carMap.put(car.getName(), temp);
-      }
-      temp.add(car);
-    }
-
-    for (java.util.Map.Entry<String, List<Car>> entry : carMap.entrySet()) {
-      List<Car> carsInBrand = entry.getValue();
-
-      carsInBrand.sort(new Comparator<Car>() {
-        @Override
-        public int compare(
-          Car s1,
-          Car s2)
-        {
-          return s1.getPrice().compareTo(s2.getPrice());
-        }
-      });
-    }
+//    Map<String, List<Car>> carMap = new HashMap<>();
+//    List<Car> temp = null;
+//    for (Car car : cars) {
+//      temp = carMap.get(car.getName());
+//      if (temp == null) {
+//        temp = new ArrayList<>();
+//        carMap.put(car.getName(), temp);
+//      }
+//      temp.add(car);
+//    }
+//
+//    for (java.util.Map.Entry<String, List<Car>> entry : carMap.entrySet()) {
+//      List<Car> carsInBrand = entry.getValue();
+//
+//      carsInBrand.sort(new Comparator<Car>() {
+//        @Override
+//        public int compare(
+//          Car s1,
+//          Car s2)
+//        {
+//          return s1.getPrice().compareTo(s2.getPrice());
+//        }
+//      });
+//    }
+    cars.stream()
+        .sorted(Comparator.comparing(Car::getBrand)
+                          .thenComparing(Car::getPrice).reversed())
+        .forEach(System.out::println);
   }
 
   private void question9(List<Car> cars)
   {
-
+    cars.stream()
+        .sorted(Comparator.comparing(Car::getBrand)
+                          .thenComparing(Car::getColor)
+                          .thenComparing(Car::getPrice).reversed())
+        .forEach(System.out::println);
   }
 
 }
