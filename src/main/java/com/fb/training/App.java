@@ -54,7 +54,7 @@ public class App {
     // 9.請依廠牌分類後，再依據顏色分類，最後依據價格，由高至低排序
 
     App app = new App();
-    app.question1(cars);
+    //app.question1(cars);
     //app.question2(cars);
     //app.question3(cars);
     //app.question4(cars);
@@ -62,7 +62,7 @@ public class App {
     //app.question6(cars);
     //app.question7(cars);
     //app.question8(cars);
-    //app.question9(cars);
+    app.question9(cars);
   }
 
   private void question1(List<Car> cars)
@@ -134,8 +134,8 @@ public class App {
 //      });
 //    }
     cars.stream()
-        .sorted(Comparator.comparing(Car::getBrand)
-                          .thenComparing(Car::getPrice).reversed())
+        .sorted(Comparator.comparing(Car::getBrand).reversed()//廠牌依照字母順序
+                          .thenComparing(Car::getPrice).reversed())//價格由高到低
         .forEach(System.out::println);
   }
 
@@ -143,7 +143,7 @@ public class App {
   {
     cars.stream()
         .sorted(Comparator.comparing(Car::getBrand)
-                          .thenComparing(Car::getColor)
+                          .thenComparing(car -> car.getColor().toString()).reversed()//Color 未依照字母順序宣告 (預設依順序會有 ordinal), 所以在此轉成字串以符合人類習慣
                           .thenComparing(Car::getPrice).reversed())
         .forEach(System.out::println);
   }
